@@ -15,6 +15,11 @@ public class CashProvider {
         this.hashCard = hashCard;
         this.isAuthorization = true;
     }
+
+    public void addCustomer(Customer customer){
+        customers.add(customer);
+    }
+    
     public boolean authorization(int id) {
         for (Customer customer: customers){
             if (customer.getId() == id) {
