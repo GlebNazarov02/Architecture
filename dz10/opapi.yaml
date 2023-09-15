@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Робот-Пылесос
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Dev server
+paths:
+  /robots:
+    get:
+      summary: Метод получения списка ресурсов на облако
+      tags:
+        - Clouds
+      operationId: getAllClouds
+      responses:
+        "200":
+          description: Успешеный ответ со списком
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Robot"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Создание заказа на облако
+      tags:
+        - Clouds
+      operationId: createCloud
+      requestBody:
+        content:
+          adplication/json:
+            schema:
+              $ref: "#/components/schemas/Robots"
+      responses:
+        "200":
+          description: Успешеный ответ со списком
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Robots"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete/{fabricModel}:
+      summary: Метод удаления робота
+      tags:
+        - Robot
+      operationId: deleteRobot
+      parameters:
+        - name: fabricModel
+          in: path
+          required: true
+          description: Индефикатор заказа
+          schema:
+            type: string
+          example: f123s125
+      responses:
+        "200":
+          description: Успешеный ответ со списком
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Robot"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"      
+components:
+  schemas:
+    Robot:
+      type: object
+      required:
+        - id
+        - fabricModel
+        - model
+      properties:
+        id:
+          type: integer
+          example: 1
+        model:
+          type: string
+          example: AAA
+          description: Модель пылесоса
+        fabricmodel:
+          type: string
+          example: 1234qa56ds
+          description: Зоводской номер робота
+    Error:
+      type: object
+      required:
+        - error_code
+        - error_message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Robots:
+      type: array
+      items:
+        $ref: "#/components/schemas/Robot"
+  /user:
+      get:
+        summary: Метод получения списка юзеров
+        tags:
+          - usere
+        operationId: getAllUsers
+        responses:
+          "200":
+            description: Успешеный ответ со списком юзерв
+            content:
+             adplication/json:
+               schema:
+                  $ref: "#/components/schemas/User"
+          "default":
+           description: Всё остальное
+            content:
+              adplication/json:
+               schema:
+                  $ref: "#/components/schemas/Error"
+      post:
+        summary: Создание пользователя
+       tags:
+         - Usees
+       operationId: createUser
+       requestBody:
+          content:
+           adplication/json:
+             schema:
+                $ref: "#/components/schemas/Users"
+       responses:
+         "200":
+          description: Успешеный ответ со списком
+            content:
+              adplication/json:
+               schema:
+                  $ref: "#/components/schemas/Users"
+         "default":
+           description: Всё остальное
+            content:
+             adplication/json:
+               schema:
+                  $ref: "#/components/schemas/Error"
+      delete/{fabricModel}:
+        summary: Метод удаления робота
+       tags:
+         - Robot
+        operationId: deleteRobot
+       parameters:
+         - name: fabricModel
+           in: path
+            required: true
+           description: Индефикатор заказа
+            schema:
+             type: string
+           example: f123s125
+       responses:
+         "200":
+           description: Успешеный ответ со списком
+           content:
+              adplication/json:
+                schema:
+                   $ref: "#/components/schemas/User"
+           "default":
+            description: Всё остальное
+            content:
+              adplication/json:
+               schema:
+                 $ref: "#/components/schemas/Error"   
